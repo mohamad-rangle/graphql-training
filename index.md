@@ -4,4 +4,4 @@ title: "GraphQL Training"
 permalink: /index.html
 ---
 
--   [Overview](/overview/)
+-   [Overview]({{'/overview/' | absolute_url}})
