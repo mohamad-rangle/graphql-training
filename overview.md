@@ -1,9 +1,7 @@
-# GraphQL Workshop (Part 1)
-
-# Rangle.io
-
-#### by Rob Brander
-
+---
+layout: lesson
+title: "Overview"
+permalink: /overview/
 ---
 
 ## Structure
@@ -14,7 +12,7 @@
 
 ---
 
-# What is GraphQL?
+## What is GraphQL?
 - Query language and server-side query processor
 - A substitute for REST
 - Query-based data fetching (as opposed to Entity-based)
@@ -23,7 +21,7 @@ NOTE: Today we'll only be covering the query language
 
 ---
 
-# GraphQL Concept
+## GraphQL Concept
 
 Querying
 - We can get data in complex shapes
@@ -35,7 +33,7 @@ Mutating
 
 ---
 
-# What is a Graph database?
+## What is a Graph database?
 
 - Data resides in "nodes"
 - Connections are made via "edges"
@@ -45,7 +43,7 @@ Mutating
 
 ---
 
-# Pros/Cons
+## Pros/Cons
 
 - Pros
   - Decouples your data layer
@@ -66,7 +64,7 @@ you shoudl evaluate the pros an cons.
 
 ---
 
-# Graph-i-QL
+## Graph-i-QL
 
 - A graphical interactive in-browser GraphQL IDE
 - Pronounced "Graphical"
@@ -75,7 +73,7 @@ you shoudl evaluate the pros an cons.
 
 ---
 
-# What is SWAPI
+## What is SWAPI
 
 - Star Wars Application Programming Interface (API)
   - located at https://swapi.co/
@@ -85,7 +83,7 @@ you shoudl evaluate the pros an cons.
 
 ---
 
-# Exploring the schema in GraphiQL
+## Exploring the schema in GraphiQL
 
 - query/mutation
 - Root: nodes vs edges
@@ -93,7 +91,7 @@ you shoudl evaluate the pros an cons.
 
 ---
 
-# Writing a query
+## Writing a query
 
 - There are two types: Query and Mutation
   - only one can be used in a query
@@ -104,24 +102,17 @@ you shoudl evaluate the pros an cons.
 
 ---
 
-# Query
-### Demo
+## Query
 
-List all star wars movies with their title and episode number
+- List all star wars movies with their title and episode number
+- List all Star Wars characters, for all films
 
-+++
-
-# Query
-### Exercise
-
-List all Star Wars characters, for all films
-
-http://graphql.org/swapi-graphql
+<http://graphql.org/swapi-graphql>
 
 ---
 
-# Arguments
-### Demo
+## Arguments
+
 - Work like filters; to reduce resulting dataset
 - Can be applied to edges and nodes
 - When applied to nodes, server can apply logic (i.e. formatting numbers)
@@ -131,6 +122,7 @@ Notes:
 
 Fetch the top 6 species
 then show pagination
+```
 query {
   allSpecies(first: 3, after: "YXJyYXljb25uZWN0aW9uOjI=") {
     totalCount
@@ -145,11 +137,7 @@ query {
     }
   }
 }
-
-+++
-
-# Arguments
-### Exercise
+```
 
 1. Find the gravity of Luke Skywalker's homeworld
 
@@ -158,7 +146,6 @@ query {
 ---
 
 # Aliases
-### Demo
 
 - Useful for providing custom names for result sets
 - Improves the readability and intention of query
@@ -168,6 +155,8 @@ query {
 Notes:
 
 Show how you can only request one person
+
+```
 query {
   LukeSkywalker: person(id: "cGVvcGxlOjE=") {
     name
@@ -184,17 +173,11 @@ query {
     }
   }
 }
+```
 
-+++
+1. Write a query that returns the Luke's homeworld name and Leia's birth year
 
-# Aliases
-### Exercise
-
-Write a query that returns the Luke's homeworld name and Leia's birth year
-
-Notes:
-
-Answer
+```
 query {
   LukeSkywalker: person(id: "cGVvcGxlOjE=") {
     name
@@ -207,12 +190,11 @@ query {
     birthYear
   }
 }
-
+```
 
 ---
 
 # Directives
-### Demo
 
 - `@include` and `@skip`
 - accept an `if` argument
@@ -222,6 +204,8 @@ query {
 Notes:
 
 Use this query:
+
+```
 query ($includeHomeworld:Boolean!) {
   LukeSkywalker: person(id: "cGVvcGxlOjE=") {
     name
@@ -234,16 +218,19 @@ query ($includeHomeworld:Boolean!) {
     birthYear
   }
 }
+```
 
 Pass in variabels using the bottom left pane in graphiql
+
+```
 { "includeHomeworld": true }
+```
 
 Then change the query to apply @include or @skip on person (edge)
 
-+++
+---
 
-# Directives
-### Exercise
+## Exercise
 
 - Write a query call getLuke with an required parameter `$withDetails`
 - Fetch the details (birthYear, eyeColor, gender, and homeworld name) for Luke Skywalker
@@ -251,6 +238,7 @@ Then change the query to apply @include or @skip on person (edge)
 
 Notes:
 
+```
 query getLuke($withDetails:Boolean!) {
   LukeSkywalker: person(id: "cGVvcGxlOjE=") {
     name @skip(if:$withDetails)
@@ -262,15 +250,17 @@ query getLuke($withDetails:Boolean!) {
     }
   }
 }
+```
 
 OR
 
+```
 query getLuke($withDetails:Boolean!) {
   LukeSkywalker: person(id: "cGVvcGxlOjE=") @include(if:$withDetails) {
     birthYear
     eyeColor
     gender
-    homeworld
+    homeworld {
       name
     }
   }
@@ -281,12 +271,13 @@ query getLuke($withDetails:Boolean!) {
 
 Arguments:
 { "withDetails": true }
+```
 
 ---
 
 # That's it!
 
-- You can learn more at http://graphql.org/learn/
+- You can learn more at <http://graphql.org/learn/>
 - Part 2 will walk you through making a GraphQL server
-- SWAPI: https://swapi.co/
-- SWAPI GraphQL: http://graphql.org/swapi-graphql
+- SWAPI: <https://swapi.co/>
+- SWAPI GraphQL: <http://graphql.org/swapi-graphql>
